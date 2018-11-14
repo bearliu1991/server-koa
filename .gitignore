@@ -1,0 +1,9 @@
+# dependencies
+/node_modules
+/.vscode
+/logs
+/uploadFiles
+# misc
+.DS_Store
+npm-debug.log*
+package-lock.json

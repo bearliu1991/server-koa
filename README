@@ -1,0 +1,73 @@
+## 星客Node2.0
+
+### 项目功能
+  - 代理转发java接口
+    - 请求参数的拦截
+    - 响应数据的转换
+  - 相关服务功能
+    - session标识服务
+    - 上传服务
+    - 微信服务
+### 项目结构
+    1. 项目结构
+      bin/
+          |-- www             // http 应用入口文件
+      config/                 // 项目环境配置文件
+          |-- default.js      // 本地开发配置文件（本地开发配置，默认与development配置一致）
+          |-- development.js  // 预发布环境配置（用于将来的预发布环境）
+          |-- production.js   // 生产环境配置
+      logs/                   // 日志目录
+      mock/                   // 接口mock
+      public/                 // 静态服务地址
+      src/                    // koa项目开发目录
+          |-- api/						// 项目所有接口
+          |
+          |-- common/			    // koa项目公用服务，类似vue中component
+          |		|--proxyService.js/			// 代理请求服务
+          |
+          |--	middlewares/		// 中间件
+          |				
+          |
+          |--	routes/		      // 路由分发目录
+          |				|--mobile/  //	移动端项目路由	
+          |       |--admin/   //	官网项目路由
+          |       |--...   
+          |--	utils/		
+          |
+          |
+          |-- App.js 					// koa应用入口
+
+      index.js                // 项目入口文件
+### 目前辅助功能
+  1. 日志
+  2. 环境分离
+  3. 代码美化及质量检查
+  4. 接口mock功能
+  5. 全面支持es6
+
+### 未来
+  1.持续集成
+  2. ...
+
+### 问题
+  1.触发登陆并且jave保存登陆成功产生sessionId（token）设置到cookie中-现存问题，只要访问接口就产品sessionId-一般node保存的token时间要短
+  2.根据模块添加前缀。比如手机端添加mobile前缀，api/mobile/*。如果有版本可以添加响应版本。如v1/api/mobile/*
+
+### 开发日志
+```
+1.cookies
+  ctx.cookies.set(name, value, [options])
+  ctx.cookies.get(name, [options])
+2.response
+  response.body
+    string 写入 Content-Type 默认为 text/html 或 text/plain
+    Buffer 写入 默认为 application/octet-stream
+    Stream 管道 application/octet-stream
+    Object || Array JSON-字符串化 application/json
+    null 无内容响应
+3.session（引用koa-session2）
+  请求路由浏览器不会在客户端生成sessionId，只有在请求的路由中设置session，客户端才会生成sessionId
+4.cookies跨域共享
+  domain: 设置cookies所在的域，设置ip，ip之间应用共享， 浏览器设置的cookie中的domain在该ip中或者域名中, 请求一次sessionId都会变化和时间也会变化, 重新生成session
+```
+
