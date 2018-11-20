@@ -1,3 +1,5 @@
+// import { Promise } from 'core-js';
+
 // import fs from 'fs';
 // import path from 'path';
 // import FdfsClient from 'fdfs';
@@ -11,17 +13,21 @@ const fdfsConfig = {
       port: 6000,
     },
   ],
+
   timeout: 10000,
   defaultExt: 'txt',
   charset: 'utf8',
 };
+
 // const config = require('config-lite')({
 //   filename: 'default',
 //   config_basedir: __dirname,
 //   config_dir: 'config',
 // });
 // const { fdfsConfig } = config;
-let client; // tracker server
+let client;
+// tracker server
+
 class fdfs {
   constructor(config) {
     if (!client) {
@@ -30,8 +36,8 @@ class fdfs {
     this.client = client;
   }
   // 上传文件，路径，文件名
-  async upload(filepath, filename) {
-    let ext = path.extname(filename);
+  async upload(filepath) {
+    let ext = path.extname(filepath);
     if (ext[0] == '.') {
       ext = ext.substr(1);
     }
@@ -44,7 +50,7 @@ class fdfs {
   // 文件标识
   async download(fileId) {
     const filename = fileId.split('/').pop(); // 名称
-    const filepath = path.resolve(__dirname, '../../../uploadFiles/', filename); // 下载路由
+    const filepath = path.resolve(__dirname, '../../../cacheFiles/', filename); // 下载路由
     // 实例方法
     await this.client.download(fileId, filepath);
     return { filepath, filename };
@@ -56,10 +62,6 @@ class fdfs {
     await this.client.download(fileId, filepath);
     return { filepath, filename };
   }
-
-  // overview(req, res, next) {
-  //   getWXqrcode(req, res, next);
-  // }
   // 删除文件
   async del(fileId) {
     let result = await this.client.del(fileId);

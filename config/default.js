@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = {
   name: '销大师NODE中间件',
   BASE_URL: 'http://192.168.0.244:80/xkdata-web',
@@ -20,6 +21,10 @@ module.exports = {
     timeout: 10000,
     defaultExt: 'txt',
     charset: 'utf8',
+  },
+  cookiesConfig: {
+    httpOnly: false,
+    maxAge: 1000 * 60 * 60 * 24,
   },
   // session相关配置
   sessionConfig: {
@@ -61,6 +66,8 @@ module.exports = {
     pm2: true,
     pm2InstanceVar: 'INSTANCE_ID',
   },
+  cachePath: path.resolve(__dirname, '../cacheFiles'),
+  publicPath: path.resolve(__dirname, '../public'),
   // 本地mock接口列表
   mockList: [],
 };

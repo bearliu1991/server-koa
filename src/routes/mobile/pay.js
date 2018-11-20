@@ -42,7 +42,7 @@ router.post('/updatePayOrderReturnParam', async ctx => {
     const responseData = {
       code: 1,
       message: '获取成功',
-      data: wxResponse.data.xml,
+      data: wxResponse,
       pageQuery: pageQueryStr,
     };
     return (ctx.body = responseData);
@@ -50,8 +50,8 @@ router.post('/updatePayOrderReturnParam', async ctx => {
   // 公众号
   if (params.type === 'WX_JSAPI_PAY' && response.data.wxAppIdPayForm) {
     // 获取公众号支付参数
-    const wxResponse = await httpsXmService.post(response.data.wxAppIdPayForm);
-    if (wxResponse.data.xml.return_code === 'FAIL' || wxResponse.data.xml.result_code === 'FAIL') {
+    const wxResponse = await httpsXmService.post(response.data.wxAppIdPayForm); // json
+    if (!wxResponse.prepay_id) {
       return (ctx.body = {
         code: 1,
         data: wxResponse,

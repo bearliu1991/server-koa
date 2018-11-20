@@ -5,37 +5,38 @@ import { dateList, menuList, recordsList, orderStatus, orderDetail, usingMenu } 
 const router = new Router();
 
 // 获取时间列表
-router.get('/dateList', async ctx => {
+router.post('/dateList', async ctx => {
   const response = await proxyService.postProxy(ctx, dateList);
   return (ctx.body = response);
 });
 
 //
-router.get('/menuList', async ctx => {
+router.post('/menuList', async ctx => {
   const response = await proxyService.postProxy(ctx, menuList);
   return (ctx.body = response);
 });
 
 //
-router.get('/recordsList', async ctx => {
+router.post('/recordsList', async ctx => {
   const response = await proxyService.postProxy(ctx, recordsList);
+  console.log(response);
   return (ctx.body = response);
 });
 
 //
-router.get('/orderStatus', async ctx => {
+router.post('/orderStatus', async ctx => {
   const response = await proxyService.postProxy(ctx, orderStatus);
   return (ctx.body = response);
 });
 
 // 获取订单详情
-router.get('/orderDetail', async ctx => {
+router.post('/orderDetail', async ctx => {
   const response = await proxyService.postProxy(ctx, orderDetail);
   return (ctx.body = response);
 });
 
 // 获取正在使用的套餐
-router.get('/usingMenu', async ctx => {
+router.post('/usingMenu', async ctx => {
   const response = await proxyService.postProxy(ctx, usingMenu);
   return (ctx.body = response);
 });

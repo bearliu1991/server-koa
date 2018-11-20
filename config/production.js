@@ -20,6 +20,10 @@ module.exports = {
     defaultExt: 'txt',
     charset: 'utf8',
   },
+  cookiesConfig: {
+    httpOnly: false,
+    maxAge: 1000 * 60 * 60,
+  },
   // session相关配置
   sessionConfig: {
     name: 'sessionId',

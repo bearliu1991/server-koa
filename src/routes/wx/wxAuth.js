@@ -37,7 +37,9 @@ router.post('/enter', async ctx => {
   return (ctx.body = {
     code: 1,
     message: '获取成功',
-    data: response,
+    data: {
+      openId: response.openid,
+    },
   });
 });
 

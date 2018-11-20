@@ -1,23 +1,23 @@
 import Router from 'koa-router';
 import proxyService from '../../common/proxyService';
 import {
-  isCanPayVoucher,
+  isCanPayVoucherAdmin,
   isBuyPackage,
   updateBatchStatusForA,
   getCurOrderDetail,
   saveOrderInfo,
   saveCorpCreateApplyForOrder,
   getSimpleDetail,
-  getOrderDetail,
-  savePayVoucherTradeOrder,
-  saveAccountTradeOrder,
+  getDetail,
+  savePayVoucherTradeOrderAdmin,
+  saveAccountTradeOrderAdmin,
 } from '../../api';
 
 const router = new Router();
 
 // 是否能上传凭证
 router.get('/isCanPayVoucher', async ctx => {
-  const response = await proxyService.postProxy(ctx, isCanPayVoucher);
+  const response = await proxyService.postProxy(ctx, isCanPayVoucherAdmin);
   return (ctx.body = response);
 });
 // 是否存在待支付订单
@@ -29,10 +29,16 @@ router.get('/getExistOrder', async ctx => {
 });
 // 取消订单
 router.get('/getCancelOrder', async ctx => {
-  let params = ctx.request.query;
-  params.corpId = Number(params.corpId);
-  params.orderStatus = Number(params.orderStatus);
-  const response = await proxyService.postProxy(ctx, updateBatchStatusForA, { params });
+  // 处理参数数组
+  const orderIds = ctx.requestParams['orderIds[]'];
+  if (typeof orderIds === 'string') {
+    ctx.requestParams['orderIds'] = [orderIds];
+  } else {
+    ctx.requestParams['orderIds'] = orderIds;
+  }
+  ctx.requestParams.corpId = Number(ctx.requestParams.corpId);
+  delete ctx.requestParams['orderIds[]'];
+  const response = await proxyService.postProxy(ctx, updateBatchStatusForA);
   return (ctx.body = response);
 });
 // 获取公司当前订购服务
@@ -74,17 +80,17 @@ router.get('/getSimpleDetail', async ctx => {
 router.get('/getOrderDetail', async ctx => {
   let params = ctx.request.query;
   params.corpId = Number(params.corpId);
-  const response = await proxyService.postProxy(ctx, getOrderDetail, { params });
+  const response = await proxyService.postProxy(ctx, getDetail, { params });
   return (ctx.body = response);
 });
 // 付款凭证确认银行汇款
 router.get('/savePayVoucherTradeOrder', async ctx => {
-  const response = await proxyService.postProxy(ctx, savePayVoucherTradeOrder);
+  const response = await proxyService.postProxy(ctx, savePayVoucherTradeOrderAdmin);
   return (ctx.body = response);
 });
 // 付款方名称账号确认银行汇款
 router.get('/saveAccountTradeOrder', async ctx => {
-  const response = await proxyService.postProxy(ctx, saveAccountTradeOrder);
+  const response = await proxyService.postProxy(ctx, saveAccountTradeOrderAdmin);
   return (ctx.body = response);
 });
 

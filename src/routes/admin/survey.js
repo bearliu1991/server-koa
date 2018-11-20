@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import proxyService from '../../common/proxyService';
+import { transformData } from '../../utils/utils';
 import {
   getKeyIndicators,
   saveloginCompany,
@@ -9,7 +10,7 @@ import {
   updateBindCorp,
   queryCorpPackRoleList,
   queryCompanyStats,
-  queryTItemValueByPager,
+  queryTItemValueByPagerAdmin,
 } from '../../api';
 
 const router = new Router();
@@ -18,8 +19,9 @@ const router = new Router();
 router.get('/getKeyIndicators', async ctx => {
   let params = ctx.request.query;
   params.time = Number(params.time);
-  params.appAccountId = Number(params.appAccountId);
-  const response = await proxyService.postProxy(ctx, getKeyIndicators, { params });
+  const response = await proxyService.postProxy(ctx, getKeyIndicators, {
+    params,
+  });
   return (ctx.body = response);
 });
 
@@ -27,7 +29,28 @@ router.get('/getKeyIndicators', async ctx => {
 router.get('/saveloginCompany', async ctx => {
   let params = ctx.request.query;
   params.corpId = Number(params.corpId);
-  const response = await proxyService.postProxy(ctx, saveloginCompany, { params });
+  let response = await proxyService.postProxy(ctx, saveloginCompany, {
+    params,
+  });
+  if (response.code === 1) {
+    response.data = transformData(response.data, {
+      area: 'area',
+      busiType: 'busiType',
+      city: 'city',
+      corpPack: 'corpPack',
+      contactName: 'contactName',
+      createId: 'createId',
+      createTime: 'createTime',
+      employeeData: 'employeeData',
+      id: 'id',
+      menuTree: 'menuTree',
+      packId: 'packId',
+      province: 'province',
+      status: 'status',
+      telephone: 'telephone',
+      corpName: 'corpName',
+    });
+  }
   return (ctx.body = response);
 });
 
@@ -35,7 +58,9 @@ router.get('/saveloginCompany', async ctx => {
 router.get('/getCorpStatisticsInfo', async ctx => {
   let params = ctx.request.query;
   params.corpId = Number(params.corpId);
-  const response = await proxyService.postProxy(ctx, getCorpStatisticsInfo, { params });
+  const response = await proxyService.postProxy(ctx, getCorpStatisticsInfo, {
+    params,
+  });
   return (ctx.body = response);
 });
 
@@ -43,7 +68,9 @@ router.get('/getCorpStatisticsInfo', async ctx => {
 router.get('/queryCorpPackageById', async ctx => {
   let params = ctx.request.query;
   params.id = Number(params.id);
-  const response = await proxyService.postProxy(ctx, queryCorpPackageById, { params });
+  const response = await proxyService.postProxy(ctx, queryCorpPackageById, {
+    params,
+  });
   return (ctx.body = response);
 });
 
@@ -52,7 +79,9 @@ router.get('/getAuthUrl', async ctx => {
   let params = ctx.request.query;
   params.reqType = Number(params.reqType);
   params.authType = Number(params.authType);
-  const response = await proxyService.postProxy(ctx, getAuthUrl, { params });
+  const response = await proxyService.postProxy(ctx, getAuthUrl, {
+    params,
+  });
   return (ctx.body = response);
 });
 
@@ -60,7 +89,9 @@ router.get('/getAuthUrl', async ctx => {
 router.get('/updateBindCorp', async ctx => {
   let params = ctx.request.query;
   params.reAuth = Number(params.reAuth);
-  let response = await proxyService.postProxy(ctx, updateBindCorp, { params });
+  let response = await proxyService.postProxy(ctx, updateBindCorp, {
+    params,
+  });
   return (ctx.body = response);
 });
 
@@ -79,7 +110,9 @@ router.get('/queryCompanyStats', async ctx => {
 router.get('/queryTItemValueByPager', async ctx => {
   let params = ctx.request.query;
   params.limit = 50;
-  let response = await proxyService.postProxy(ctx, queryTItemValueByPager, { params });
+  let response = await proxyService.postProxy(ctx, queryTItemValueByPagerAdmin, {
+    params,
+  });
   return (ctx.body = response);
 });
 export default router;

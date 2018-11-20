@@ -44,7 +44,7 @@ class ProxyService {
       `web->${options.origin} >>>>>> ${url} request params: ${JSON.stringify(options.params)}`
     ); // 请求日志
     try {
-      const response = await request.post(url, options.params).then(res => res.data);
+      const response = await request.get(url, { params: options.params }).then(res => res.data);
       logger.info(
         `java->${options.origin} >>>>>> ${url} response data:${JSON.stringify(response)}`
       ); // 响应日志

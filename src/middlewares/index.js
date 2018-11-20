@@ -1,12 +1,15 @@
 import { genUUID } from '../utils/utils';
+const config = require('config-lite')({
+  filename: 'default',
+  config_basedir: __dirname,
+  config_dir: 'config',
+});
+const { cookiesConfig } = config;
 export async function SessionId(ctx, next) {
   let sessionId = ctx.cookies.get('sessionId');
   if (!sessionId) {
     sessionId = genUUID(32);
-    ctx.cookies.set('sessionId', sessionId, {
-      httpOnly: false,
-      maxAge: 1000 * 60 * 10,
-    });
+    ctx.cookies.set('sessionId', sessionId, cookiesConfig);
   }
   ctx.sessionId = sessionId;
   await next();
@@ -15,7 +18,9 @@ export async function SessionId(ctx, next) {
 // 移除get请求中的timestamp
 export async function removeTimestamp(ctx, next) {
   const query = ctx.request.query;
-  delete query.timestamp;
+  if (ctx.method === 'GET' && !ctx.url.includes('xkdata-web/wechatNotify')) {
+    delete query.timestamp;
+  }
   ctx.request.query = query;
   await next();
 }

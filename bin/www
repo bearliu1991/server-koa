@@ -2,9 +2,7 @@
 import http from 'http';
 import app from '../src/app';
 import logUtil from '../src/utils/logUtil'
-
-const debug = require('debug')('demo:server');
-
+import socketApp from '../socket/app'
 
 /**
  * Normalize a port into a number, string, or false.
@@ -32,6 +30,11 @@ const port = normalizePort(process.env.PORT || '8091');
  * Create HTTP server.
  */
 const server = http.createServer(app.callback());
+/**
+ * Create socket server.
+ */
+socketApp(server);
+
 server.listen(port);
 server.on('error', (error) => {
   if (error.syscall !== 'listen') {
@@ -45,11 +48,11 @@ server.on('error', (error) => {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      debug(`${bind} requires elevated privileges`);
+      console.log(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      debug(`${bind} is already in use`);
+      console.log(`${bind} is already in use`);
       process.exit(1);
       break;
     default:

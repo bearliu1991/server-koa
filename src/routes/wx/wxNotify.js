@@ -1,33 +1,38 @@
 import Router from 'koa-router';
-import proxyService from '../../common/proxyService';
+import httpXmlService from '../../common/httpXmlService';
 import xmlDataHandler from '../../common/xmlDataHandler';
 const router = new Router();
 
-// 微信通知
+// 服务器配置地址 msgNotify/0，用户发送和接受微信服务器信息
 router.post('/msgNotify/*', async ctx => {
-  const jsonData = await xmlDataHandler.getXmlData(ctx);
-  const response = await proxyService.postProxy(ctx, ctx.url, { params: jsonData });
-  ctx.body = response;
+  const xmlData = await xmlDataHandler.getXmlData(ctx, 'xml');
+  httpXmlService.post(ctx.url, { data: xmlData });
+  ctx.body = 'success';
 });
+// 用于校验服务器
 router.get('/msgNotify/*', async ctx => {
-  const response = await proxyService.getProxy(ctx, ctx.url);
+  const response = await httpXmlService.get(ctx, ctx.url);
   ctx.body = response;
 });
 
+// 微信二维码授权登陆授权事件接受URL
 router.post('/componentNotify/', async ctx => {
-  const jsonData = await xmlDataHandler.getXmlData(ctx);
-  const response = await proxyService.postProxy(ctx, ctx.url, { params: jsonData });
+  const xmlData = await xmlDataHandler.getXmlData(ctx, 'xml');
+  const response = await httpXmlService.post(ctx.url, { data: xmlData });
   ctx.body = response;
 });
-
+// 授权登陆后实现的业务URL
 router.post('/msgPlatNotify/:appid', async ctx => {
-  let appid = ctx.appid;
+  let appid = ctx.params.appid;
   if (/8ff8$/.test(appid)) {
-    const jsonData = await xmlDataHandler.getXmlData(ctx);
-    const response = await proxyService.postProxy(ctx, ctx.url, { params: jsonData });
+    const xmlData = await xmlDataHandler.getXmlData(ctx, 'xml');
+    const response = await httpXmlService.post(ctx.url, { data: xmlData });
     return (ctx.body = response);
   } else {
-    return (ctx.body = '');
+    const xmlData = await xmlDataHandler.getXmlData(ctx, 'xml');
+    console.log(xmlData);
+    httpXmlService.post(ctx.url, { data: xmlData });
+    ctx.body = 'success';
   }
 });
 

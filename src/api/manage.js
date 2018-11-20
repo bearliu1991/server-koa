@@ -123,7 +123,7 @@ module.exports = {
   queryCorpPackRoleList: oms + '/corp/queryCorpPackRoleList', // 接口在企业管理平台员工模块内
   // 新建企业
   getNewCorpApplyOrderForM: oms + '/corp/getNewCorpApplyOrderForM', // 新创建企业列表查询(运营平台)
-  getCorpApplyDetail: api + '/corp/getCorpApplyDetail', // 运营端新创建企业详情
+  getCorpApplyDetail: oms + '/corp/getCorpApplyDetail', // 运营端新创建企业详情
   // 公众号(checked)
   getPublicAccountListByPage: oms + '/css/getPublicAccountListByPage', // 分页查询
   updatePublicAccountToActiveByOperation: oms + '/css/updatePublicAccountToActiveByOperation', // 启用

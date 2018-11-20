@@ -7,7 +7,7 @@ const router = new Router();
 
 // 微信支付异步通知
 router.post('/updatePayOrderByWxNotify', async ctx => {
-  const jsonData = xmlDataHandler.getXmlData(ctx);
+  const jsonData = await xmlDataHandler.getXmlData(ctx);
   const params = { params: JSON.stringify(jsonData) };
   const response = await proxyService.postProxy(ctx, updatePayOrderByWxNotify, { params });
   if (response.code === 1) {

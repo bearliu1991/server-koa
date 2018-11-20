@@ -7,6 +7,8 @@ import path from 'path';
 import logger from 'koa-logger'; // 代替console
 import convert from 'koa-convert';
 import logUtil from './utils/logUtil';
+import fs from 'fs';
+
 // 中间件
 import { removeTimestamp, getRequestParams, SessionId } from './middlewares';
 // 接口服务
@@ -14,7 +16,23 @@ import account from './routes/account';
 import mobile from './routes/mobile';
 import admin from './routes/admin';
 import manage from './routes/manage';
+import csws from './routes/csws';
 import upload from './routes/upload';
+import wx from './routes/wx';
+// 缓存文件
+const config = require('config-lite')({
+  filename: 'default',
+  config_basedir: __dirname,
+  config_dir: 'config',
+});
+const { cachePath, publicPath } = config;
+// 项目目录初始化
+if (!fs.existsSync(cachePath)) {
+  fs.mkdirSync(cachePath);
+}
+if (!fs.existsSync(publicPath)) {
+  fs.mkdirSync(publicPath);
+}
 
 const app = new Koa();
 
@@ -23,6 +41,7 @@ onerror(app);
 
 // middlewares
 app.use(cors());
+
 app.use(
   bodyparser({
     enableTypes: ['json', 'form', 'text'],
@@ -53,12 +72,16 @@ app.use(getRequestParams);
 mobile(app);
 // 官网
 admin(app);
+// 聊天
+csws(app);
 // 账户
 account(app);
 // 运营
 manage(app);
 // 上传
 upload(app);
+// 微信
+wx(app);
 
 // error-handling
 app.on('error', (err, ctx) => {

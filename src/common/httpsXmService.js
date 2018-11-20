@@ -1,7 +1,7 @@
 import https from 'https';
 import json_xml from 'json_xml';
 import logger from '../utils/logUtil';
-
+// 用于https发送xml数据
 class HttpsXMLService {
   async post(data, options) {
     logger.info('web->WECHAT >>>>>> ' + '/pay/unifiedorder' + ' request params: ' + data);

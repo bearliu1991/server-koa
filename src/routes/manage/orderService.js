@@ -1,39 +1,17 @@
 import Router from 'koa-router';
 import proxyService from '../../common/proxyService';
-import { transformData } from '../../utils/utils';
-import { getOrderListByPageForM, updateBatchStatusForMr, getOrderDetail } from '../../api';
+import { getOrderListByPageForM, updateBatchStatusForM, getOrderDetail } from '../../api';
 const router = new Router();
 
 //
-router.post('/getOrderListByPage', async ctx => {
+router.post('/getOrderListByPageForM', async ctx => {
   const response = await proxyService.postProxy(ctx, getOrderListByPageForM);
-  response.data.records = transformData(response.data.records, {
-    orderCreateTime: 'orderCreateTime',
-    corpId: 'corpId',
-    corpName: 'corpName',
-    orderChannel: 'orderChannel',
-    goodsName: 'goodsName',
-    validDay: 'validDay',
-    goodsPrice: 'goodsPrice',
-    goodsDiscountsPrice: 'goodsDiscountsPrice',
-    goodsNum: 'goodsNum',
-    goodsNumPrice: 'goodsNumPrice',
-    orderMobile: 'orderMobile',
-    orderNickname: 'orderNickname',
-    picUrl: 'picUrl',
-    orderPayprice: 'orderPayprice',
-    status: 'status',
-    payType: 'payType',
-    orderId: 'orderId',
-    orderPayPrice: 'orderPayPrice',
-    payOrderNo: 'payOrderNo',
-    packageId: 'packageId',
-  });
   return (ctx.body = response);
 });
 //
 router.post('/updateBatchStatusForM', async ctx => {
-  const response = await proxyService.postProxy(ctx, updateBatchStatusForMr);
+  console.log(ctx);
+  const response = await proxyService.postProxy(ctx, updateBatchStatusForM);
   return (ctx.body = response);
 });
 //

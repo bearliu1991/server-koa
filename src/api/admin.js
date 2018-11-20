@@ -93,11 +93,11 @@ module.exports = {
   // 修改个性化坐席接口
   updateConditionalSeat: api + '/seat/updateConditionalSeat',
   // 是否能上传凭证
-  isCanPayVoucher: api + '/uPayOrder/isCanPayVoucher',
+  isCanPayVoucherAdmin: api + '/uPayOrder/isCanPayVoucher',
   // 银行汇款上传凭证,付款方名称账号上传
-  saveAccountTradeOrder: api + '/uPayOrder/saveAccountTradeOrder',
+  saveAccountTradeOrderAdmin: api + '/uPayOrder/saveAccountTradeOrder',
   // 银行汇款上传凭证 ,付款凭证上传
-  savePayVoucherTradeOrder: api + '/uPayOrder/savePayVoucherTradeOrder',
+  savePayVoucherTradeOrderAdmin: api + '/uPayOrder/savePayVoucherTradeOrder',
   // 是否存在待支付订单(管理平台)
   isBuyPackage: api + '/corp/isBuyPackage',
   // 获取公司当前订购服务(管理平台)
@@ -129,9 +129,8 @@ module.exports = {
   orderDetail: api + '/order/getDetail', // 订单详情
   usingMenu: api + '/corp/getCurOrderDetail', // 正在使用的套餐
   ajaxUsingMenu: api + '/tconfig/queryTItemValueByPage', // 正在使用的套餐
-
   getTree: api + '/corp/loadCorpDeptTree', // 加载公司部门树
-  creatApart: api + '/corp/saveCorpDept', // 创建部门
+  addApart: api + '/corp/saveCorpDept', // 创建部门
   delApart: api + '/corp/deleteCorpDept', // 删除部门
   formWecode: api + '/employee/updateInviteEmployee', // 生成邀请二维码
   isAddUserAvail: api + '/employee/checkEeNum', // 查询是否可以添加员工

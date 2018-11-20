@@ -19,7 +19,6 @@ router.get('/getTmpQrcode', async ctx => {
   let params = ctx.request.query;
   params.platformType = Number(params.platformType);
   params.expireSeconds = Number(params.expireSeconds);
-  params.appAccountId = Number(params.appAccountId);
   if (params.corpId) {
     params.corpId = Number(params.corpId);
   }
@@ -71,7 +70,10 @@ router.get('/queryTItemValueByPager', async ctx => {
 
 // 保存创建公司申请
 router.get('/saveCorpCreateApply', async ctx => {
-  const response = await proxyService.postProxy(ctx, saveCorpCreateApply);
+  let params = ctx.request.query;
+  params.userId = Number(params.userId);
+  params.corpId = Number(params.corpId);
+  const response = await proxyService.postProxy(ctx, saveCorpCreateApply, { params });
   return (ctx.body = response);
 });
 

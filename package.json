@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "base64-img": "^1.0.4",
     "config-lite": "^2.1.0",
     "cross-env": "^5.2.0",
     "fdfs": "^1.0.4",
@@ -23,7 +24,9 @@
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.11",
     "log4js": "^3.0.6",
-    "mockjs": "^1.0.1-beta3"
+    "mockjs": "^1.0.1-beta3",
+    "request": "^2.88.0",
+    "socketio": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -41,8 +44,9 @@
   "scripts": {
     "precommit": "lint-staged",
     "start": "nodemon index.js",
-    "dev": "PORT=8092 cross-env NODE_ENV=development pm2 start index.js --name 'yktdevserver'",
-    "prd": "PORT=8091 cross-env NODE_ENV=production pm2 start index.js --name 'yktserver'",
+    "devnodemon": "cross-env NODE_ENV=development PORT=8092 nodemon index.js",
+    "dev": "pm2 start ecosystem.config.js --only test-yktserver",
+    "prd": "pm2 start ecosystem.config.js --only prod-yktserver",
     "lint": "eslint --ext .js src",
     "lint:fix": "eslint --fix --ext .js src"
   },

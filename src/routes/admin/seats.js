@@ -40,18 +40,8 @@ router.post('/saveSeat', async ctx => {
 });
 
 // 修改坐席接口
-router.get('/updateSeat', async ctx => {
-  let params = ctx.request.query;
-  if (params.eeId) {
-    params.eeId = Number(params.eeId);
-  }
-  params.seatId = Number(params.seatId);
-  if (params.updateConditionalSeats) {
-    for (var i = 0; i < params.updateConditionalSeats.length; i++) {
-      params.updateConditionalSeats[i] = JSON.parse(params.updateConditionalSeats[i]);
-    }
-  }
-  const response = await proxyService.postProxy(ctx, updateSeat, { params });
+router.post('/updateSeat', async ctx => {
+  const response = await proxyService.postProxy(ctx, updateSeat);
   return (ctx.body = response);
 });
 
@@ -73,13 +63,13 @@ router.get('/getSeatList', async ctx => {
 });
 
 // 批量为坐席修改公众号权限
-router.get('/updateSeatAuthByBatch', async ctx => {
+router.post('/updateSeatAuthByBatch', async ctx => {
   const response = await proxyService.postProxy(ctx, updateSeatAuthByBatch);
   return (ctx.body = response);
 });
 
 // 解除授权/停用/批量停用/启用统一调用接口
-router.get('/updateSeatStatus', async ctx => {
+router.post('/updateSeatStatus', async ctx => {
   const response = await proxyService.postProxy(ctx, updateSeatStatus);
   return (ctx.body = response);
 });
@@ -95,21 +85,13 @@ router.get('/updateSeatBaseInfo', async ctx => {
 });
 
 // 修改坐席权限接口
-router.get('/updateSeatAuth', async ctx => {
-  let params = ctx.request.query;
-  params.seatId = Number(params.seatId);
-  for (let i = 0; i < params.appAccountIds.length; i++) {
-    params.appAccountIds[i] = Number(params.appAccountIds[i]);
-  }
-  for (let i = 0; i < params.authIds.length; i++) {
-    params.authIds[i] = Number(params.authIds[i]);
-  }
-  const response = await proxyService.postProxy(ctx, updateSeatAuth, { params });
+router.post('/updateSeatAuth', async ctx => {
+  const response = await proxyService.postProxy(ctx, updateSeatAuth);
   return (ctx.body = response);
 });
 
 // 修改个性化坐席接口
-router.get('/updateConditionalSeat', async ctx => {
+router.post('/updateConditionalSeat', async ctx => {
   const response = await proxyService.postProxy(ctx, updateConditionalSeat);
   return (ctx.body = response);
 });

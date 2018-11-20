@@ -111,7 +111,7 @@ class SDK {
   // 从文件里面读取缓存
   readCacheFile(filename) {
     try {
-      const data = fs.readFileSync(path.resolve(__dirname, `../logs/${filename}`));
+      const data = fs.readFileSync(path.resolve(__dirname, `../../cacheFiles/${filename}`));
       return JSON.parse(data);
     } catch (e) {
       return {};
@@ -119,7 +119,7 @@ class SDK {
   }
   // 往文件里面写缓存
   writeCacheFile(filename, data) {
-    const file = path.resolve(__dirname, `../logs/${filename}`);
+    const file = path.resolve(__dirname, `../../cacheFiles/${filename}`);
     return fs.writeFileSync(file, JSON.stringify(data));
   }
   // 将json生成排序字符串

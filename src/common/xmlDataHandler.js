@@ -1,20 +1,22 @@
+import logger from '../utils/logUtil';
 const json_xml = require('json_xml');
 class XmlDataHandler {
-  async getXmlData(ctx) {
-    if (ctx.method == 'POST' && ctx.is('text/xml')) {
-      return new Promise(resolve => {
-        let buf = '';
-        ctx.req.setEncoding('utf8');
-        ctx.req.on('data', chunk => {
-          buf += chunk;
-        });
-        ctx.req.on('end', () => {
-          resolve(json_xml.xml2json(buf).xml);
-        });
+  async getXmlData(ctx, type) {
+    return new Promise(resolve => {
+      let buf = '';
+      // ctx.req.setEncoding('utf8');
+      ctx.req.on('data', chunk => {
+        buf += chunk;
       });
-    } else {
-      return ctx.request.body;
-    }
+      ctx.req.on('end', () => {
+        logger.info(`WECHAT->NODE >>>>>> ${ctx.url} response data:${buf}`); // 响应日志
+        if (type === 'xml') {
+          resolve(buf);
+        } else {
+          resolve(json_xml.xml2json(buf).xml);
+        }
+      });
+    });
   }
   postXmlData(data) {
     // ctx.res.setHeader('Content-Type', 'application/xml');

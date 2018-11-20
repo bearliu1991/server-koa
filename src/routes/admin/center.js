@@ -15,7 +15,6 @@ import {
 } from '../../api';
 
 const router = new Router();
-
 // 获取当前用户创建或加入（中） 与 审核通过的 公司列表
 router.get('/getUserCorpAuthMulti', async ctx => {
   const response = await proxyService.postProxy(ctx, getUserCorpAuthMulti);

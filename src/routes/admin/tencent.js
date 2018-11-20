@@ -26,11 +26,8 @@ router.get('/checkAppIdNum', async ctx => {
 });
 
 // 公众号信息一键同步
-router.get('/updateCssWxPublicAccountDataToDb', async ctx => {
-  let params = ctx.request.query;
-  params.appAccountId = Number(params.appAccountId);
-  params.eeId = Number(params.eeId);
-  const response = await proxyService.postProxy(ctx, updateCssWxPublicAccountDataToDb, { params });
+router.post('/updateCssWxPublicAccountDataToDb', async ctx => {
+  const response = await proxyService.postProxy(ctx, updateCssWxPublicAccountDataToDb);
   return (ctx.body = response);
 });
 
