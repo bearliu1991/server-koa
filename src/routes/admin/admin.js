@@ -7,7 +7,7 @@ import {
   bindUserEmailPhoneAndVerifyCode,
   resendCode,
   loadTConfigListTreeAdmin,
-  queryTItemValueByPagerAdmin,
+  getValueByKeyAndPvAdmin,
   saveCorpCreateApply,
   getDefaultInfo,
 } from '../../api';
@@ -63,8 +63,8 @@ router.get('/loadTConfigListTree', async ctx => {
 });
 
 // 分页查询系统明细
-router.get('/queryTItemValueByPager', async ctx => {
-  const response = await proxyService.postProxy(ctx, queryTItemValueByPagerAdmin);
+router.get('/getValueByKeyAndPv', async ctx => {
+  const response = await proxyService.postProxy(ctx, getValueByKeyAndPvAdmin);
   return (ctx.body = response);
 });
 

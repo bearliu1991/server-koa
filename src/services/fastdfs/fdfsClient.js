@@ -13,6 +13,12 @@ const fdfsConfig = {
       port: 6000,
     },
   ],
+  // trackers: [
+  //   {
+  //     host: '192.168.0.243',
+  //     port: 9091,
+  //   },
+  // ],
 
   timeout: 10000,
   defaultExt: 'txt',
@@ -88,7 +94,7 @@ class fdfs {
   }
 }
 
-// new fdfs(fdfsConfig).upload(path.resolve(__dirname, '../../../uploadFiles/dcmdfh.png'), 'dcmdfh.png') 上传
+// new fdfs(fdfsConfig).upload(path.resolve(__dirname, '../../../cacheFiles/1542628534993.png'), '1542628534993.png')
 // new fdfs(fdfsConfig).download('group1/M00/00/04/wKgA9FvlSJmAcLD5AAA_BxTyO4E732.png')
 // new fdfs(fdfsConfig).listGroups()
 // new fdfs(fdfsConfig).listStorages()

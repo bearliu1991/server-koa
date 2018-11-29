@@ -11,13 +11,12 @@ router.post('/updatePayOrderByWxNotify', async ctx => {
   const params = { params: JSON.stringify(jsonData) };
   const response = await proxyService.postProxy(ctx, updatePayOrderByWxNotify, { params });
   if (response.code === 1) {
-    ctx.res.setHeader('Content-Type', 'application/xml');
     const resXml =
       '<xml>' +
       '<return_code><![CDATA[SUCCESS]]></return_code>' +
       '<return_msg><![CDATA[OK]]></return_msg>' +
       '</xml>';
-    return ctx.res.end(resXml);
+    return (ctx.body = resXml);
   }
   return (ctx.body = response);
 });
@@ -27,7 +26,7 @@ router.post('/updatePayOrderByAliPayNotify', async ctx => {
   let params = { params: JSON.stringify(ctx.request.body) };
   const response = await proxyService.postProxy(ctx, updatePayOrderByAliPayNotify, { params });
   if (response.code === 1) {
-    ctx.res.end = 'success';
+    ctx.body = 'success';
   }
   return response;
 });

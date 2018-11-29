@@ -10,7 +10,7 @@ import {
   updateBindCorp,
   queryCorpPackRoleList,
   queryCompanyStats,
-  queryTItemValueByPagerAdmin,
+  loadTConfigListTreeAdmin,
 } from '../../api';
 
 const router = new Router();
@@ -108,11 +108,7 @@ router.get('/queryCompanyStats', async ctx => {
 });
 // 获取数据字典值
 router.get('/queryTItemValueByPager', async ctx => {
-  let params = ctx.request.query;
-  params.limit = 50;
-  let response = await proxyService.postProxy(ctx, queryTItemValueByPagerAdmin, {
-    params,
-  });
+  let response = await proxyService.postProxy(ctx, loadTConfigListTreeAdmin);
   return (ctx.body = response);
 });
 export default router;

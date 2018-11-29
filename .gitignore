@@ -3,6 +3,8 @@
 /.vscode
 /logs
 /cacheFiles
+ffmpeg/*
+
 # misc
 .DS_Store
 npm-debug.log

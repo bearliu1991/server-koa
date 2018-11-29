@@ -9,9 +9,9 @@ module.exports = {
   // 用户绑定手机号,同时校验验证码
   bindUserEmailPhoneAndVerifyCode: api + '/user/bindUserEmailPhoneAndVerifyCode',
   // 加载系统配置内容树
-  loadTConfigListTreeAdmin: api + '/tconfig/loadTConfigListTree',
+  loadTConfigListTreeAdmin: api + '/tconfig/getValueByKey',
   // 分页查询系统字典明细表
-  queryTItemValueByPagerAdmin: api + '/tconfig/queryTItemValueByPager',
+  getValueByKeyAndPvAdmin: api + '/tconfig/getValueByKeyAndPv',
   // 保存创建公司申请
   saveCorpCreateApply: api + '/corp/saveCorpCreateApply',
   // 获取默认免费信息 套餐id 套餐角色id 官方appid对应的accountid

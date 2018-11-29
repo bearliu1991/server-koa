@@ -41,15 +41,15 @@ export default function(app) {
     socket.on('message', function(data) {
       socket.broadcast.emit('message', data);
     });
-    socket.on('chat_msg',function(res){
+    socket.on('chat_msg', function(res) {
       io.emit('chat_msg', res);
-    })
-    socket.on('send_msg',function(res){
+    });
+    socket.on('send_msg', function(res) {
       io.emit('send_msg', res);
-    })
-    socket.on('HeartBeat',function(res){
+    });
+    socket.on('HeartBeat', function(res) {
       io.emit('HeartBeat', res);
-    })
+    });
 
     // 断开会话连接
     socket.on('disconnect', function() {

@@ -38,8 +38,9 @@ module.exports = {
       location: '浙江省杭州市拱墅区大关街道118号',
       lastTime: '2018-7-29 14:28:50',
       id: 0,
-      portrait: '/static/imgs/1.jpg',
+      portrait: 'http://xingke100.com/logo.png',
       times: 10,
+      tag: 1,
     },
     {
       name: '王五',
@@ -54,8 +55,9 @@ module.exports = {
       location: '浙江省杭州市拱墅区大关街道118号',
       lastTime: '2018-7-29 14:28:50',
       id: 1,
-      portrait: '/static/imgs/2.jpg',
+      portrait: 'http://xingke100.com/logo.png',
       times: 10,
+      tag: 2,
     },
     {
       name: 'David',
@@ -72,6 +74,7 @@ module.exports = {
       id: 2,
       portrait: '/static/imgs/3.jpg',
       times: 10,
+      tag: 3,
     },
     {
       name: '王宇',
@@ -87,6 +90,7 @@ module.exports = {
       id: 3,
       portrait: '/static/imgs/4.jpg',
       times: 10,
+      tag: 4,
     },
     {
       name: 'wangwu',
@@ -620,18 +624,22 @@ module.exports = {
   ],
   records: [
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: '张三',
       info: 'HI,很高兴认识你,HI,很高兴认识你很高兴认识你',
       type: 0,
       len: 9,
-      id: 0,
+      id: 999,
       isTop: true,
       setTopTime: 123,
       chatTime: 1533153730,
       searchType: 0,
       msgType: 0,
+      tag: 1,
+      exclusive: 1,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: '王五',
       info: '我也是',
       type: 1,
@@ -642,9 +650,13 @@ module.exports = {
       chatTime: 1533154730,
       searchType: 0,
       msgType: 0,
+      tag: 2,
+      exclusive: 1,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: 'David',
+      isTop: false,
       info:
         '你看见啦水力发3电看见路上看见【】士大夫十分立刻哦罚款的说法是防水房但是服务网点光辐射大概是个温柔可以把我带上吗',
       type: 0,
@@ -653,8 +665,11 @@ module.exports = {
       chatTime: 1533155730,
       searchType: 0,
       msgType: 0,
+      tag: 3,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
+      isTop: false,
       name: '王宇',
       info: '在不在？',
       type: 0,
@@ -663,9 +678,12 @@ module.exports = {
       chatTime: 1533156730,
       searchType: 0,
       msgType: 0,
+      tag: 4,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: 'wangwu',
+      isTop: false,
       info: '后来我埃里克就是大佛骗我飞机配阿韦杰夫拉开点距离拍摄 怕了科技发达普拉斯飓风琳达设计费',
       type: 0,
       len: 6,
@@ -675,16 +693,19 @@ module.exports = {
       msgType: 0,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: '王武骑',
       info: '就all法律手段维埃帕杜拉老妈概率高达十六安康健身房的饭卡设立了干嘛',
       type: 1,
       len: 2,
       id: 5,
+      isTop: false,
       chatTime: 1533158730,
       searchType: 1,
       msgType: 0,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: 'hello',
       info: '虑离开单独收费频道你',
       type: 0,
@@ -695,6 +716,7 @@ module.exports = {
       msgType: 0,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: 'david',
       info: '我也是',
       type: 1,
@@ -705,6 +727,7 @@ module.exports = {
       msgType: 0,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: '政治',
       info: '你法是防水房但是服务网点电看见路上看见【】士大夫十分',
       type: 0,
@@ -715,6 +738,7 @@ module.exports = {
       msgType: 0,
     },
     {
+      avatar: 'http://xingke100.com/logo.png',
       name: '王琦',
       info: '现场v学生的',
       type: 0,
@@ -1669,15 +1693,17 @@ module.exports = {
     },
   ],
   userInfo: {
+    avatar: 'http://xingke100.com/logo.png',
+    nickName: 'FLYING',
     company: '杭州星客互联有限公司',
     name: '诚郡王',
-    userType: '1',
+    seatNo: 'zx0001',
+    version: '标准版',
     mobile: '13812345678',
-    email: '1032304@qq.com',
-    apartment: '财务部',
-    xiwei: ['整点财经公众号客服', '粉丝策略公众号客服', '洋财信息公众号客服'],
+    expireTime: '2018-12-12',
+    status: 1,
   },
-  chat0: {
+  chat1: {
     0: {
       name: '张三',
       info: '安康健身房的饭卡设立了干嘛',
@@ -1892,7 +1918,7 @@ module.exports = {
       chatTime: 1533260530,
     },
   },
-  chat1: {
+  chat0: {
     0: {
       name: '张三',
       info: '安康健身房的饭卡设立了干嘛',
@@ -2542,6 +2568,12 @@ module.exports = {
       name: '我',
       info: '哎呦喂',
       type: 1,
+    },
+  ],
+  grabOrderList: [
+    {
+      id: 0,
+      label: 111,
     },
   ],
 };

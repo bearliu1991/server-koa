@@ -43,7 +43,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "start": "nodemon index.js",
+    "start": "cross-env NODE_ENV=development nodemon index.js",
     "devnodemon": "cross-env NODE_ENV=development PORT=8092 nodemon index.js",
     "dev": "pm2 start ecosystem.config.js --only test-yktserver",
     "prd": "pm2 start ecosystem.config.js --only prod-yktserver",

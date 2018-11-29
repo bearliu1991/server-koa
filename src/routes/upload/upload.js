@@ -5,6 +5,7 @@ import getWebData from '../../common/getWebData';
 // import base64Img from 'base64-img';
 import uploadService from '../../common/uploadService';
 import { base64String } from '../../utils/utils';
+import { readDuration } from './ffmpeg';
 const router = new Router();
 
 const config = require('config-lite')({
@@ -18,7 +19,7 @@ const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, cachePath);
   },
-  filename: function(req, file, cb) {
+  filename: function(ctx, file, cb) {
     const fileFormat = file.originalname.split('.');
     cb(null, Date.now() + '.' + fileFormat[fileFormat.length - 1]);
   },
@@ -31,6 +32,7 @@ router.post(
     { name: 'avatar', maxCount: 1 },
     { name: 'file', maxCount: 1 },
     { name: 'fileList', maxCount: 12 },
+    { name: 'aduio', maxCount: 1 },
   ]),
   async ctx => {
     // 单文件
@@ -57,26 +59,19 @@ router.post(
           return { code: 110, message: '上传失败' };
         });
       return (ctx.body = resultList);
+    } else if (ctx.req.files['aduio']) {
+      let file = ctx.req.files['aduio'][0];
+
+      const duration = await readDuration(file.path);
+      console.log(1231231, duration);
+      return (ctx.body = duration);
     } else {
       // 使用form表单上传多个文件
       return (ctx.body = { code: 110, message: '字段错误或者传递文件类型错误' });
     }
   }
 );
-// 上传base64文件
-// router.get('/uploadBase64', async ctx => {
-//   const fileId = ctx.requestParams.fileId;
-//   const file = await uploadService.download(fileId);
-//   if (file.code !=1 ) {
-//     ctx.set({
-//       "Content-Type": "application/octet-stream",
-//       "Content-Disposition": "attachment; filename=" + file.filename
-//     });
-//     ctx.body = fs.createReadStream(file.filepath)
-//   } else {
-//     return file
-//   }
-// });
+
 // 下载
 router.get('/download', async ctx => {
   const fileId = ctx.requestParams.fileId;
@@ -91,20 +86,7 @@ router.get('/download', async ctx => {
     return file;
   }
 });
-// 读取文件
-// router.get('/readFile', async ctx => {
-//   const fileId = ctx.requestParams.fileId;
-//   const file = await uploadService.download(fileId);
-//   if (file.code !=1 ) {
-//     ctx.set({
-//       "Content-Type": "application/octet-stream",
-//       "Content-Disposition": "attachment; filename=" + file.filename
-//     });
-//     return ctx.body = fs.createReadStream(file.filepath)
-//   } else {
-//     return file
-//   }
-// });
+
 // 删除
 router.get('/deleteuploadfile', async ctx => {
   const fileId = ctx.requestParams.fileId;
